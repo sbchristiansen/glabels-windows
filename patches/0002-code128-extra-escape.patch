@@ -1,13 +1,12 @@
 diff --git a/backends/barcode/Zint.cpp b/backends/barcode/Zint.cpp
 --- a/backends/barcode/Zint.cpp
 +++ b/backends/barcode/Zint.cpp
-@@ -69,5 +69,8 @@
-     zint_symbol* symbol = ZBarcode_Create();
-
-     symbol->symbology = symbology;
--    symbol->input_mode = UNICODE_MODE;
-+    symbol->input_mode =
-+        (symbology == BARCODE_CODE128)
-+            ? (UNICODE_MODE | EXTRA_ESCAPE_MODE)
-+            : UNICODE_MODE;
-     symbol->scale = 0.5f; // Pixels
+@@ -65,4 +65,7 @@
+                 zint_symbol* symbol = ZBarcode_Create();
+                 symbol->symbology = symbology;
+-                symbol->input_mode = UNICODE_MODE;
++                symbol->input_mode =
++                    (symbology == BARCODE_CODE128)
++                        ? (UNICODE_MODE | EXTRA_ESCAPE_MODE)
++                        : UNICODE_MODE;
+                 symbol->scale = 0.5f; // Pixels
