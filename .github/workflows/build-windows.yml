@@ -97,7 +97,7 @@ jobs:
           fi
           for p in "${patches[@]}"; do
             echo "==> $p"
-            git -C src apply --verbose "${GITHUB_WORKSPACE}/${p}"
+           git -C src apply --verbose --ignore-space-change --ignore-whitespace "${GITHUB_WORKSPACE}/${p}"
           done
 
       - name: Clone vcpkg
