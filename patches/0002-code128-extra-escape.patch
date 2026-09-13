@@ -1,6 +1,6 @@
-diff --git a/backends/zint/Zint.cpp b/backends/zint/Zint.cpp
---- a/backends/zint/Zint.cpp
-+++ b/backends/zint/Zint.cpp
+diff --git a/backends/barcode/Zint.cpp b/backends/barcode/Zint.cpp
+--- a/backends/barcode/Zint.cpp
++++ b/backends/barcode/Zint.cpp
 @@ -69,5 +69,8 @@
      zint_symbol* symbol = ZBarcode_Create();
 
