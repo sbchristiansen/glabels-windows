@@ -1,0 +1,15 @@
+diff --git a/backends/barcode/Zint.cpp b/backends/barcode/Zint.cpp
+--- a/backends/barcode/Zint.cpp
++++ b/backends/barcode/Zint.cpp
+@@ -74,1 +74,10 @@
+-                if ( ZBarcode_Encode( symbol, (unsigned char*)(cookedData.c_str()), 0 ) >= 5 /*ZINT_ERROR*/ )
++                std::string zintData = cookedData;
++                if ( symbology == BARCODE_CODE128 )
++                {
++                        const std::string prefix = "\\^A\\^1";
++                        if ( zintData.rfind( prefix, 0 ) != 0 )
++                        {
++                                zintData = prefix + zintData;
++                        }
++                }
++                if ( ZBarcode_Encode( symbol, (unsigned char*)(zintData.c_str()), 0 ) >= 5 /*ZINT_ERROR*/ )
