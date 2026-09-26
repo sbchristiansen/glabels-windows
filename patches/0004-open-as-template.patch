@@ -2,7 +2,7 @@ diff --git a/glabels/File.hpp b/glabels/File.hpp
 --- a/glabels/File.hpp
 +++ b/glabels/File.hpp
 @@ -44,6 +44,7 @@ public:
- 
+
          static bool newLabel( MainWindow *window = nullptr );
          static void open( MainWindow *window );
 +        static void openAsTemplate( MainWindow *window );
@@ -15,8 +15,8 @@ diff --git a/glabels/File.cpp b/glabels/File.cpp
 +++ b/glabels/File.cpp
 @@ -145,6 +145,56 @@ void File::open( MainWindow *window )
  }
- 
- 
+
+
 +///
 +/// Open file as template
 +///
@@ -45,8 +45,8 @@ diff --git a/glabels/File.cpp b/glabels/File.cpp
 +                model::Model *model = model::XmlLabelParser::readFile( fileName );
 +                if ( model )
 +                {
-+                        // Forget the source filename so Save cannot overwrite
-+                        // the original template. The first Save will use Save As.
++                        // Detach the new document from the source file.
++                        // A normal Save will therefore invoke Save As.
 +                        model->setFileName( QString() );
 +                        model->setModified();
 +
@@ -61,6 +61,7 @@ diff --git a/glabels/File.cpp b/glabels/File.cpp
 +                                newWindow->show();
 +                        }
 +
++                        // Keep the source directory as the current directory.
 +                        mCwd = QFileInfo( fileName ).absolutePath();
 +                }
 +        }
@@ -74,7 +75,7 @@ diff --git a/glabels/MainWindow.hpp b/glabels/MainWindow.hpp
 --- a/glabels/MainWindow.hpp
 +++ b/glabels/MainWindow.hpp
 @@ -95,6 +95,7 @@ private slots:
- 
+
          void fileNew();
          void fileOpen();
 +        void fileOpenAsTemplate();
@@ -82,7 +83,7 @@ diff --git a/glabels/MainWindow.hpp b/glabels/MainWindow.hpp
          void fileSave();
          void fileSaveAs();
 @@ -261,6 +262,7 @@ private:
- 
+
          QAction*  fileNewAction;
          QAction*  fileOpenAction;
 +        QAction*  fileOpenAsTemplateAction;
@@ -96,7 +97,7 @@ diff --git a/glabels/MainWindow.cpp b/glabels/MainWindow.cpp
 @@ -287,6 +287,12 @@ void MainWindow::createActions()
          fileOpenAction->setStatusTip( tr("Open an existing gLabels project") );
          connect( fileOpenAction, SIGNAL(triggered()), this, SLOT(fileOpen()) );
- 
+
 +        fileOpenAsTemplateAction = new QAction( tr("Open as &Template..."), this );
 +        fileOpenAsTemplateAction->setStatusTip(
 +                tr("Open an existing gLabels project as a new document") );
@@ -106,18 +107,17 @@ diff --git a/glabels/MainWindow.cpp b/glabels/MainWindow.cpp
          for ( int i = 0; i < model::Settings::maxRecentFiles(); i++ )
          {
                  auto* action = new QAction( this );
-@@ -610,6 +616,7 @@ void MainWindow::createMenus()
+@@ -610,5 +616,6 @@ void MainWindow::createMenus()
          fileMenu = menuBar()->addMenu( tr("&File") );
          fileMenu->addAction( fileNewAction );
          fileMenu->addAction( fileOpenAction );
 +        fileMenu->addAction( fileOpenAsTemplateAction );
          fileRecentMenu = fileMenu->addMenu( QIcon::fromTheme( "glabels-file-recent" ), tr("Open Recent") );
- 
          for ( auto* action : fileRecentActionList )
 @@ -1172,6 +1179,15 @@ void MainWindow::fileNew()
  }
- 
- 
+
+
 +///
 +/// File->Open As Template Action
 +///
