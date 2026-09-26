@@ -114,10 +114,10 @@ diff --git a/glabels/MainWindow.cpp b/glabels/MainWindow.cpp
 +        fileMenu->addAction( fileOpenAsTemplateAction );
          fileRecentMenu = fileMenu->addMenu( QIcon::fromTheme( "glabels-file-recent" ), tr("Open Recent") );
          for ( auto* action : fileRecentActionList )
-@@ -1172,6 +1179,15 @@ void MainWindow::fileNew()
+@@ -1173,6 +1180,15 @@ void MainWindow::fileNew()
  }
 
-
+ 
 +///
 +/// File->Open As Template Action
 +///
