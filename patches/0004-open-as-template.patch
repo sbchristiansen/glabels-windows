@@ -13,7 +13,7 @@ diff --git a/glabels/File.hpp b/glabels/File.hpp
 diff --git a/glabels/File.cpp b/glabels/File.cpp
 --- a/glabels/File.cpp
 +++ b/glabels/File.cpp
-@@ -145,6 +145,55 @@ void File::open( MainWindow *window )
+@@ -145,6 +145,56 @@ void File::open( MainWindow *window )
  }
  
  
