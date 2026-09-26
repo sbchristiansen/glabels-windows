@@ -9,7 +9,7 @@ diff --git a/glabels/File.hpp b/glabels/File.hpp
 diff --git a/glabels/File.cpp b/glabels/File.cpp
 --- a/glabels/File.cpp
 +++ b/glabels/File.cpp
-@@ -132,0 +133,49 @@
+@@ -132,0 +133,46 @@
 +
 +        ///
 +        /// Open File As Template
