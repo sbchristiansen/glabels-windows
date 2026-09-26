@@ -9,9 +9,11 @@ diff --git a/glabels/File.hpp b/glabels/File.hpp
 diff --git a/glabels/File.cpp b/glabels/File.cpp
 --- a/glabels/File.cpp
 +++ b/glabels/File.cpp
-@@ -132,2 +132,46 @@
-         }
- 
+@@ -132,0 +133,49 @@
++
++        ///
++        /// Open File As Template
++        ///
 +        void File::openAsTemplate( MainWindow *window )
 +        {
 +                QString cwd = mCwd;
@@ -28,7 +30,8 @@ diff --git a/glabels/File.cpp b/glabels/File.cpp
 +                        QFileDialog::getOpenFileName( window,
 +                                                      tr("gLabels - Open As Template"),
 +                                                      cwd,
-+                                                      tr("glabels files (*.glabels);;All files (*)") );
++                                                      tr("glabels files (*.glabels);;All files (*)")
++                                );
 +
 +                if ( !fileName.isEmpty() )
 +                {
@@ -54,7 +57,6 @@ diff --git a/glabels/File.cpp b/glabels/File.cpp
 +                }
 +        }
 +
-         ///
 
 diff --git a/glabels/MainWindow.hpp b/glabels/MainWindow.hpp
 --- a/glabels/MainWindow.hpp
@@ -71,27 +73,21 @@ diff --git a/glabels/MainWindow.hpp b/glabels/MainWindow.hpp
 diff --git a/glabels/MainWindow.cpp b/glabels/MainWindow.cpp
 --- a/glabels/MainWindow.cpp
 +++ b/glabels/MainWindow.cpp
-@@ -262,2 +262,8 @@
-         connect( fileOpenAction, SIGNAL(triggered()), this, SLOT(fileOpen()) );
-+        fileOpenAsTemplateAction = new QAction( tr("Open as &Template..."), this );
-+        fileOpenAsTemplateAction->setStatusTip(
-+                tr("Open an existing gLabels project as a new document") );
-+        connect( fileOpenAsTemplateAction, SIGNAL(triggered()),
-+                 this, SLOT(fileOpenAsTemplate()) );
+@@ -263,0 +264,5 @@
++                fileOpenAsTemplateAction = new QAction( tr("Open as &Template..."), this );
++                fileOpenAsTemplateAction->setStatusTip(
++                        tr("Open an existing gLabels project as a new document") );
++                connect( fileOpenAsTemplateAction, SIGNAL(triggered()), this, SLOT(fileOpenAsTemplate()) );
 +
-         for ( int i = 0; i < model::Settings::maxRecentFiles(); i++ )
-@@ -610,4 +616,5 @@
-         fileMenu->addAction( fileNewAction );
-         fileMenu->addAction( fileOpenAction );
-+        fileMenu->addAction( fileOpenAsTemplateAction );
-         fileRecentMenu = fileMenu->addMenu( QIcon::fromTheme( "glabels-file-recent" ), tr("Open Recent") );
-@@ -1173,2 +1180,8 @@
- }
- 
-+void MainWindow::fileOpenAsTemplate()
-+{
-+        File::openAsTemplate( this );
-+}
+@@ -612,0 +618 @@
++                fileMenu->addAction( fileOpenAsTemplateAction );
+@@ -1173,0 +1180,9 @@
 +
++        ///
++        /// File->Open As Template Action
++        ///
++        void MainWindow::fileOpenAsTemplate()
++        {
++                File::openAsTemplate( this );
++        }
 +
- ///
