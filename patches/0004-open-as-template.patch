@@ -73,7 +73,7 @@ diff --git a/glabels/MainWindow.hpp b/glabels/MainWindow.hpp
 diff --git a/glabels/MainWindow.cpp b/glabels/MainWindow.cpp
 --- a/glabels/MainWindow.cpp
 +++ b/glabels/MainWindow.cpp
-@@ -287,6 +287,11 @@
+@@ -285,6 +285,16 @@
                  fileOpenAction->setStatusTip( tr("Open an existing gLabels project") );
                  connect( fileOpenAction, SIGNAL(triggered()), this, SLOT(fileOpen()) );
 
