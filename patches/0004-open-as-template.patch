@@ -9,10 +9,6 @@ diff --git a/glabels/MainWindow.hpp b/glabels/MainWindow.hpp
 diff --git a/glabels/MainWindow.cpp b/glabels/MainWindow.cpp
 --- a/glabels/MainWindow.cpp
 +++ b/glabels/MainWindow.cpp
-@@ -263,0 +264,4 @@
+@@ -263,0 +264,2 @@
 +                fileOpenAsTemplateAction = new QAction( tr("Open as &Template..."), this );
-+                fileOpenAsTemplateAction->setStatusTip(
-+                        tr("Open an existing gLabels project as a new document") );
 +
-@@ -612,0 +617 @@
-+                fileMenu->addAction( fileOpenAsTemplateAction );
