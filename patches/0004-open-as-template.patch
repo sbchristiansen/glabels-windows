@@ -56,7 +56,6 @@ diff --git a/glabels/File.cpp b/glabels/File.cpp
 +                        }
 +                }
 +        }
-+
 
 diff --git a/glabels/MainWindow.hpp b/glabels/MainWindow.hpp
 --- a/glabels/MainWindow.hpp
@@ -73,7 +72,10 @@ diff --git a/glabels/MainWindow.hpp b/glabels/MainWindow.hpp
 diff --git a/glabels/MainWindow.cpp b/glabels/MainWindow.cpp
 --- a/glabels/MainWindow.cpp
 +++ b/glabels/MainWindow.cpp
-@@ -285,6 +285,16 @@
+@@ -285,8 +285,13 @@
+                 fileOpenAction = new QAction( tr("&Open..."), this );
+                 fileOpenAction->setIcon( QIcon::fromTheme( "glabels-file-open" ) );
+                 fileOpenAction->setShortcut( QKeySequence::Open );
                  fileOpenAction->setStatusTip( tr("Open an existing gLabels project") );
                  connect( fileOpenAction, SIGNAL(triggered()), this, SLOT(fileOpen()) );
 
@@ -84,8 +86,7 @@ diff --git a/glabels/MainWindow.cpp b/glabels/MainWindow.cpp
 +
                  for ( int i = 0; i < model::Settings::maxRecentFiles(); i++ )
                  {
-                         auto* action = new QAction( this );
-@@ -611,6 +616,7 @@
+@@ -611,8 +616,9 @@
                  fileMenu = menuBar()->addMenu( tr("&File") );
                  fileMenu->addAction( fileNewAction );
                  fileMenu->addAction( fileOpenAction );
@@ -93,7 +94,11 @@ diff --git a/glabels/MainWindow.cpp b/glabels/MainWindow.cpp
                  fileRecentMenu = fileMenu->addMenu( QIcon::fromTheme( "glabels-file-recent" ), tr("Open Recent") );
                  for ( auto* action : fileRecentActionList )
                  {
-@@ -1179,6 +1185,15 @@
+                         fileRecentMenu->addAction( action );
+@@ -1177,12 +1183,21 @@
+         /// File->Open Action
+         ///
+         void MainWindow::fileOpen()
          {
                  File::open( this );
          }
@@ -109,3 +114,4 @@ diff --git a/glabels/MainWindow.cpp b/glabels/MainWindow.cpp
  
          ///
          /// File->OpenRecent Action
+         ///
