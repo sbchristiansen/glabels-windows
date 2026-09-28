@@ -9,8 +9,21 @@ diff --git a/glabels/MainWindow.hpp b/glabels/MainWindow.hpp
 diff --git a/glabels/MainWindow.cpp b/glabels/MainWindow.cpp
 --- a/glabels/MainWindow.cpp
 +++ b/glabels/MainWindow.cpp
-@@ -263,0 +264,2 @@
+@@ -287,6 +287,9 @@
+                 fileOpenAction->setStatusTip( tr("Open an existing gLabels project") );
+                 connect( fileOpenAction, SIGNAL(triggered()), this, SLOT(fileOpen()) );
+
 +                fileOpenAsTemplateAction = new QAction( tr("Open as &Template..."), this );
++                fileOpenAsTemplateAction->setStatusTip( tr("Open an existing gLabels project as a new document") );
 +
-@@ -612,0 +617 @@
+                 for ( int i = 0; i < model::Settings::maxRecentFiles(); i++ )
+                 {
+                         auto* action = new QAction( this );
+@@ -611,6 +614,7 @@
+                 fileMenu = menuBar()->addMenu( tr("&File") );
+                 fileMenu->addAction( fileNewAction );
+                 fileMenu->addAction( fileOpenAction );
 +                fileMenu->addAction( fileOpenAsTemplateAction );
+                 fileRecentMenu = fileMenu->addMenu( QIcon::fromTheme( "glabels-file-recent" ), tr("Open Recent") );
+                 for ( auto* action : fileRecentActionList )
+                 {
