@@ -12,3 +12,5 @@ diff --git a/glabels/MainWindow.cpp b/glabels/MainWindow.cpp
 @@ -263,0 +264,2 @@
 +                fileOpenAsTemplateAction = new QAction( tr("Open as &Template..."), this );
 +
+@@ -612,0 +617 @@
++                fileMenu->addAction( fileOpenAsTemplateAction );
