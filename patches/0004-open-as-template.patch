@@ -1,16 +1,23 @@
 diff --git a/glabels/File.hpp b/glabels/File.hpp
+index 9e39a09..a1d2e35 100644
 --- a/glabels/File.hpp
 +++ b/glabels/File.hpp
-@@ -41,2 +41,3 @@
+@@ -16,6 +16,7 @@ namespace glabels
+         public:
+                 static bool newLabel( MainWindow *window = nullptr );
                  static void open( MainWindow *window );
 +                static void openAsTemplate( MainWindow *window );
                  static void open( const QString& fileName, MainWindow *window );
-
+                 static bool save( MainWindow *window );
+                 static bool saveAs( MainWindow *window );
 diff --git a/glabels/File.cpp b/glabels/File.cpp
+index 0114b45..923dea8 100644
 --- a/glabels/File.cpp
 +++ b/glabels/File.cpp
-@@ -143,0 +144,46 @@
-+
+@@ -143,6 +143,53 @@ namespace glabels
+         }
+ 
+ 
 +        ///
 +        /// Open File As Template
 +        ///
@@ -56,29 +63,39 @@ diff --git a/glabels/File.cpp b/glabels/File.cpp
 +                        }
 +                }
 +        }
-
++
++
+         ///
+         /// Open file
+         ///
 diff --git a/glabels/MainWindow.hpp b/glabels/MainWindow.hpp
+index 7ca2255..fa09c38 100644
 --- a/glabels/MainWindow.hpp
 +++ b/glabels/MainWindow.hpp
-@@ -95,2 +95,3 @@
-         void fileOpen();
-+        void fileOpenAsTemplate();
-         void fileOpenRecent();
-@@ -261,2 +262,3 @@
-         QAction*  fileOpenAction;
-+        QAction*  fileOpenAsTemplateAction;
-         QAction*  fileSaveAction;
-
+@@ -96,6 +96,7 @@ namespace glabels
+ 
+                 void fileNew();
+                 void fileOpen();
++                void fileOpenAsTemplate();
+                 void fileOpenRecent();
+                 void fileSave();
+                 void fileSaveAs();
+@@ -262,6 +263,7 @@ namespace glabels
+ 
+                 QAction*  fileNewAction;
+                 QAction*  fileOpenAction;
++                QAction*  fileOpenAsTemplateAction;
+                 QAction*  fileSaveAction;
+                 QAction*  fileSaveAsAction;
+                 QAction*  fileShowEditorPageAction;
 diff --git a/glabels/MainWindow.cpp b/glabels/MainWindow.cpp
+index 07d8d84..e697767 100644
 --- a/glabels/MainWindow.cpp
 +++ b/glabels/MainWindow.cpp
-@@ -285,9 +285,14 @@
-                 fileOpenAction = new QAction( tr("&Open..."), this );
-                 fileOpenAction->setIcon( QIcon::fromTheme( "glabels-file-open" ) );
-                 fileOpenAction->setShortcut( QKeySequence::Open );
+@@ -13,6 +13,11 @@
                  fileOpenAction->setStatusTip( tr("Open an existing gLabels project") );
                  connect( fileOpenAction, SIGNAL(triggered()), this, SLOT(fileOpen()) );
-
+ 
 +                fileOpenAsTemplateAction = new QAction( tr("Open as &Template..."), this );
 +                fileOpenAsTemplateAction->setStatusTip(
 +                        tr("Open an existing gLabels project as a new document") );
@@ -87,7 +104,7 @@ diff --git a/glabels/MainWindow.cpp b/glabels/MainWindow.cpp
                  for ( int i = 0; i < model::Settings::maxRecentFiles(); i++ )
                  {
                          auto* action = new QAction( this );
-@@ -611,7 +616,9 @@
+@@ -22,6 +27,7 @@
                  fileMenu = menuBar()->addMenu( tr("&File") );
                  fileMenu->addAction( fileNewAction );
                  fileMenu->addAction( fileOpenAction );
@@ -95,15 +112,10 @@ diff --git a/glabels/MainWindow.cpp b/glabels/MainWindow.cpp
                  fileRecentMenu = fileMenu->addMenu( QIcon::fromTheme( "glabels-file-recent" ), tr("Open Recent") );
                  for ( auto* action : fileRecentActionList )
                  {
-                         fileRecentMenu->addAction( action );
-@@ -1177,11 +1183,19 @@
-         /// File->Open Action
-         ///
-         void MainWindow::fileOpen()
-         {
-                 File::open( this );
+@@ -33,6 +39,15 @@
          }
-
+ 
+ 
 +        ///
 +        /// File->Open As Template Action
 +        ///
@@ -112,7 +124,7 @@ diff --git a/glabels/MainWindow.cpp b/glabels/MainWindow.cpp
 +                File::openAsTemplate( this );
 +        }
 +
- 
++
          ///
          /// File->OpenRecent Action
          ///
