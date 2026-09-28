@@ -87,7 +87,7 @@ diff --git a/glabels/MainWindow.cpp b/glabels/MainWindow.cpp
                  for ( int i = 0; i < model::Settings::maxRecentFiles(); i++ )
                  {
                          auto* action = new QAction( this );
-@@ -611,8 +616,9 @@
+@@ -611,7 +616,9 @@
                  fileMenu = menuBar()->addMenu( tr("&File") );
                  fileMenu->addAction( fileNewAction );
                  fileMenu->addAction( fileOpenAction );
@@ -96,7 +96,7 @@ diff --git a/glabels/MainWindow.cpp b/glabels/MainWindow.cpp
                  for ( auto* action : fileRecentActionList )
                  {
                          fileRecentMenu->addAction( action );
-@@ -1177,12 +1183,21 @@
+@@ -1177,11 +1183,19 @@
          /// File->Open Action
          ///
          void MainWindow::fileOpen()
